@@ -24,3 +24,5 @@ hs_err_pid*
 .mvn/
 .idea/
 target/
+/mvnw
+/mvnw.cmd
