@@ -1,5 +1,8 @@
 package rnd.mate00.springwebflux.leagues;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -22,6 +25,14 @@ public class LeagueCall {
 
         ResponseEntity<String> response =
                 restTemplate.exchange("https://api-football-v1.p.rapidapi.com/v2/leagues/country/england/2018", HttpMethod.GET, entity, String.class);
+
+        ObjectMapper mapper = new ObjectMapper();
+        try {
+            JsonNode jsonNode = mapper.readTree(response.getBody());
+            System.out.println(jsonNode.toPrettyString());
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
 
     }
 }
