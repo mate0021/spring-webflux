@@ -10,6 +10,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import rnd.mate00.springwebflux.schema.Api;
 
 @Service
 public class LeagueCall {
@@ -28,8 +29,10 @@ public class LeagueCall {
 
         ObjectMapper mapper = new ObjectMapper();
         try {
-            JsonNode jsonNode = mapper.readTree(response.getBody());
-            System.out.println(jsonNode.toPrettyString());
+            Api api = mapper.readValue(response.getBody(), Api.class);
+            System.out.println(api);
+//            JsonNode jsonNode = mapper.readTree(response.getBody());
+//            System.out.println(jsonNode.toPrettyString());
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
