@@ -17,4 +17,15 @@ public class Coverage {
     @JsonProperty("odds")
     public Boolean odds;
 
+    @Override
+    public String toString() {
+        return "Coverage{" +
+                "standings=" + standings +
+                ", fixtures=" + fixtures +
+                ", players=" + players +
+                ", topScorers=" + topScorers +
+                ", predictions=" + predictions +
+                ", odds=" + odds +
+                '}';
+    }
 }

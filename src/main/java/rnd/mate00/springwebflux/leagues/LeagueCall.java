@@ -1,7 +1,6 @@
 package rnd.mate00.springwebflux.leagues;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
@@ -10,7 +9,7 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import rnd.mate00.springwebflux.schema.Api;
+import rnd.mate00.springwebflux.schema.LeagueCallResult;
 
 @Service
 public class LeagueCall {
@@ -29,7 +28,7 @@ public class LeagueCall {
 
         ObjectMapper mapper = new ObjectMapper();
         try {
-            Api api = mapper.readValue(response.getBody(), Api.class);
+            LeagueCallResult api = mapper.readValue(response.getBody(), LeagueCallResult.class);
             System.out.println(api);
 //            JsonNode jsonNode = mapper.readTree(response.getBody());
 //            System.out.println(jsonNode.toPrettyString());

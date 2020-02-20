@@ -12,7 +12,7 @@ import java.util.List;
         "results",
         "leagues"
 })
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties(ignoreUnknown = false)
 public class Api {
 
     @JsonProperty("results")

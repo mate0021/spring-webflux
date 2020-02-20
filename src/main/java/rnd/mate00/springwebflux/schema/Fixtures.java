@@ -13,4 +13,13 @@ public class Fixtures {
     @JsonProperty("players_statistics")
     public Boolean playersStatistics;
 
+    @Override
+    public String toString() {
+        return "Fixtures{" +
+                "events=" + events +
+                ", lineups=" + lineups +
+                ", statistics=" + statistics +
+                ", playersStatistics=" + playersStatistics +
+                '}';
+    }
 }

@@ -30,4 +30,23 @@ public class League {
     public Integer isCurrent;
     @JsonProperty("coverage")
     public Coverage coverage;
+
+    @Override
+    public String toString() {
+        return "League{" +
+                "leagueId=" + leagueId +
+                ", name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", country='" + country + '\'' +
+                ", countryCode='" + countryCode + '\'' +
+                ", season=" + season +
+                ", seasonStart='" + seasonStart + '\'' +
+                ", seasonEnd='" + seasonEnd + '\'' +
+                ", logo=" + logo +
+                ", flag='" + flag + '\'' +
+                ", standings=" + standings +
+                ", isCurrent=" + isCurrent +
+                ", coverage=" + coverage +
+                '}';
+    }
 }
