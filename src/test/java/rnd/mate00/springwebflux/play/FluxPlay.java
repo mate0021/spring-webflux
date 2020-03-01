@@ -44,4 +44,32 @@ public class FluxPlay {
 
         flux.log().subscribe();
     }
+
+    @Test
+    public void handleOneCaseDifferentlyAndThrowError() {
+        Flux<Integer> ints = Flux.range(1, 5);
+
+        ints.map(i -> {
+            if (i < 4) {
+                return i;
+            }
+            throw new RuntimeException("Too big value!");
+        })
+//                .log()
+                .subscribe(System.out::println);
+    }
+
+    @Test
+    public void handleOneCaseDifferently_ThrowError_CatchItInSubscriber() {
+        Flux<Integer> ints = Flux.range(1, 5);
+
+        ints.map(i -> {
+            if (i < 4) {
+                return i;
+            }
+            throw new RuntimeException("Too big value, but let's catch it");
+        })
+//                .log()
+                .subscribe(i -> {}, e -> { System.out.println(e);});
+    }
 }
