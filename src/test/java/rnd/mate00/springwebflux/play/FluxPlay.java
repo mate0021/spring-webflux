@@ -1,6 +1,7 @@
 package rnd.mate00.springwebflux.play;
 
 import org.junit.Test;
+import org.reactivestreams.Subscription;
 import reactor.core.publisher.Flux;
 
 import java.util.Arrays;
@@ -45,7 +46,7 @@ public class FluxPlay {
         flux.log().subscribe();
     }
 
-    @Test
+    @Test(expected = RuntimeException.class)
     public void handleOneCaseDifferentlyAndThrowError() {
         Flux<Integer> ints = Flux.range(1, 5);
 
@@ -71,5 +72,24 @@ public class FluxPlay {
         })
 //                .log()
                 .subscribe(i -> {}, e -> { System.out.println(e);});
+    }
+
+    @Test
+    public void requestLessElements() {
+        Flux<Integer> ints = Flux.range(1, 15);
+
+        ints.log().subscribe(
+                System.out::println,
+                e -> System.err.println("Error: " + e),
+                () -> {
+                    System.out.println("Done");
+                },
+                new Consumer<Subscription>() {
+                    @Override
+                    public void accept(Subscription subscription) {
+                        subscription.request(10);
+                    }
+                }
+        );
     }
 }
