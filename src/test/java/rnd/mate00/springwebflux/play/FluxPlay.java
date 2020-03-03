@@ -95,9 +95,10 @@ public class FluxPlay {
 
     @Test
     public void useStandaloneSubscriber_InsteadOfLambdas() {
-        StandaloneSubscriber<Integer> subscriber = new StandaloneSubscriber();
+        StandaloneSubscriber<Integer> subscriber = new StandaloneSubscriber<>();
         Flux<Integer> ints = Flux.range(1, 20);
 
         ints.log().subscribe(subscriber);
+//        ints.log().subscribe(System.out::println);
     }
 }
