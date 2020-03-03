@@ -2,6 +2,7 @@ package rnd.mate00.springwebflux.play;
 
 import org.reactivestreams.Subscription;
 import reactor.core.publisher.BaseSubscriber;
+import reactor.core.publisher.SignalType;
 
 public class StandaloneSubscriber<T> extends BaseSubscriber<T> {
 
@@ -16,11 +17,27 @@ public class StandaloneSubscriber<T> extends BaseSubscriber<T> {
     @Override
     protected void hookOnNext(T value) {
         System.out.println("Received " + value);
+        throw new IllegalArgumentException("hookOnError and hookFinally will be called.");
 //        request(1);
     }
 
     @Override
     protected void hookOnComplete() {
         System.out.println("Done.");
+    }
+
+    @Override
+    protected void hookOnCancel() {
+        System.out.println("Cancelling...");
+    }
+
+    @Override
+    protected void hookOnError(Throwable throwable) {
+        System.out.println("On error: " + throwable);
+    }
+
+    @Override
+    protected void hookFinally(SignalType type) {
+        System.out.println("Finally: " + type);
     }
 }
