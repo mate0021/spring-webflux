@@ -101,4 +101,12 @@ public class FluxPlay {
         ints.log().subscribe(subscriber);
 //        ints.log().subscribe(System.out::println);
     }
+
+    @Test
+    public void handleCancelling_InStandaloneSubscriber() {
+        CancellableSubscriber subscriber = new CancellableSubscriber();
+        Flux<Integer> ints = Flux.range(1, 10);
+
+        ints.subscribe(subscriber);
+    }
 }
