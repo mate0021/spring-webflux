@@ -5,6 +5,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.SynchronousSink;
 
 import java.util.concurrent.Callable;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 
@@ -43,7 +45,7 @@ public class FluxGeneratePlay {
         }, new Consumer<String>() {
             @Override
             public void accept(String s) {
-                System.out.println("ending consumer");
+                System.out.println("ending consumer will free resources");
             }
         });
 
@@ -65,6 +67,26 @@ public class FluxGeneratePlay {
                     }
                 },
                 System.out::println
+        );
+
+        strs.log().subscribe();
+    }
+
+    @Test
+    public void generatorWithState() {
+        Flux<String> strs = Flux.generate(
+                AtomicInteger::new,
+                new BiFunction<AtomicInteger, SynchronousSink<String>, AtomicInteger>() {
+                    @Override
+                    public AtomicInteger apply(AtomicInteger integerState, SynchronousSink<String> stringSynchronousSink) {
+                        int i = integerState.incrementAndGet();
+                        if (i > 10) {
+                            stringSynchronousSink.complete();
+                        }
+                        stringSynchronousSink.next(String.valueOf(i));
+                        return integerState;
+                    }
+                }
         );
 
         strs.log().subscribe();
