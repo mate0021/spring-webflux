@@ -86,6 +86,12 @@ public class FluxGeneratePlay {
                         stringSynchronousSink.next(String.valueOf(i));
                         return integerState;
                     }
+                },
+                new Consumer<AtomicInteger>() {
+                    @Override
+                    public void accept(AtomicInteger integerState) {
+                        System.out.println("Finalizing with " + integerState);
+                    }
                 }
         );
 
